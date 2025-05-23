@@ -34,6 +34,14 @@ pub struct ComparisonGate<F: Field64 + Extendable<D>, const D: usize> {
     _phantom: PhantomData<F>,
 }
 
+// The generator needs a default in order to be serializable, and it includes the
+// gate as member.
+impl<F: RichField + Extendable<D>, const D: usize> Default for ComparisonGate<F, D> {
+    fn default() -> Self {
+        Self::new(32, 1)
+    }
+}
+
 impl<F: RichField + Extendable<D>, const D: usize> ComparisonGate<F, D> {
     pub fn new(num_bits: usize, num_chunks: usize) -> Self {
         debug_assert!(num_bits < bits_u64(F::ORDER));
@@ -413,7 +421,7 @@ impl<F: RichField + Extendable<D>, const D: usize> PackedEvaluableBase<F, D>
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct ComparisonGenerator<F: RichField + Extendable<D>, const D: usize> {
     row: usize,
     gate: ComparisonGate<F, D>,

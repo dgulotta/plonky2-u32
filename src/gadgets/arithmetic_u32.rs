@@ -246,6 +246,17 @@ pub struct SplitToU32Generator<F: RichField + Extendable<D>, const D: usize> {
     _phantom: PhantomData<F>,
 }
 
+impl<F: RichField + Extendable<D>, const D: usize> Default for SplitToU32Generator<F, D> {
+    fn default() -> Self {
+        Self {
+            x: Default::default(),
+            low: U32Target::new_unsafe(Default::default()),
+            high: U32Target::new_unsafe(Default::default()),
+            _phantom: PhantomData,
+        }
+    }
+}
+
 impl<F: RichField + Extendable<D>, const D: usize> SimpleGenerator<F, D>
     for SplitToU32Generator<F, D>
 {

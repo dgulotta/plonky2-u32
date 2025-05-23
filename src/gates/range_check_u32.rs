@@ -26,6 +26,12 @@ pub struct U32RangeCheckGate<F: RichField + Extendable<D>, const D: usize> {
     _phantom: PhantomData<F>,
 }
 
+impl<F: RichField + Extendable<D>, const D: usize> Default for U32RangeCheckGate<F, D> {
+    fn default() -> Self {
+        Self::new(1)
+    }
+}
+
 impl<F: RichField + Extendable<D>, const D: usize> U32RangeCheckGate<F, D> {
     pub fn new(num_input_limbs: usize) -> Self {
         Self {
@@ -175,7 +181,7 @@ impl<F: RichField + Extendable<D>, const D: usize> Gate<F, D> for U32RangeCheckG
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct U32RangeCheckGenerator<F: RichField + Extendable<D>, const D: usize> {
     gate: U32RangeCheckGate<F, D>,
     row: usize,

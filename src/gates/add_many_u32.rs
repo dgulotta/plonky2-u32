@@ -31,6 +31,12 @@ pub struct U32AddManyGate<F: RichField + Extendable<D>, const D: usize> {
     _phantom: PhantomData<F>,
 }
 
+impl<F: RichField + Extendable<D>, const D: usize> Default for U32AddManyGate<F, D> {
+    fn default() -> Self {
+        Self::new_from_config(&CircuitConfig::standard_recursion_config(), 2)
+    }
+}
+
 impl<F: RichField + Extendable<D>, const D: usize> U32AddManyGate<F, D> {
     pub fn new_from_config(config: &CircuitConfig, num_addends: usize) -> Self {
         Self {
@@ -284,7 +290,7 @@ impl<F: RichField + Extendable<D>, const D: usize> Gate<F, D> for U32AddManyGate
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct U32AddManyGenerator<F: RichField + Extendable<D>, const D: usize> {
     gate: U32AddManyGate<F, D>,
     row: usize,

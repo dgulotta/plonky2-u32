@@ -32,6 +32,12 @@ pub struct U32SubtractionGate<F: RichField + Extendable<D>, const D: usize> {
     _phantom: PhantomData<F>,
 }
 
+impl<F: RichField + Extendable<D>, const D: usize> Default for U32SubtractionGate<F, D> {
+    fn default() -> Self {
+        Self::new_from_config(&CircuitConfig::standard_recursion_config())
+    }
+}
+
 impl<F: RichField + Extendable<D>, const D: usize> U32SubtractionGate<F, D> {
     pub fn new_from_config(config: &CircuitConfig) -> Self {
         Self {
@@ -274,7 +280,7 @@ impl<F: RichField + Extendable<D>, const D: usize> PackedEvaluableBase<F, D>
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct U32SubtractionGenerator<F: RichField + Extendable<D>, const D: usize> {
     gate: U32SubtractionGate<F, D>,
     row: usize,
