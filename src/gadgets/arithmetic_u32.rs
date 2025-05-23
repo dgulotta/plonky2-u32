@@ -86,7 +86,9 @@ impl<F: RichField + Extendable<D>, const D: usize> CircuitBuilderU32<F, D>
     }
 
     fn add_virtual_u32_targets(&mut self, n: usize) -> Vec<U32Target> {
-        let targets: Vec<_> = (0..n).map(|_| U32Target(self.add_virtual_target())).collect();
+        let targets: Vec<_> = (0..n)
+            .map(|_| U32Target(self.add_virtual_target()))
+            .collect();
         crate::gadgets::range_check::range_check_u32_circuit(self, &targets);
         targets
     }
@@ -231,13 +233,13 @@ impl<F: RichField + Extendable<D>, const D: usize> CircuitBuilderU32<F, D>
     }
 
     fn convert_to_u32(&mut self, target: Target) -> U32Target {
-        self.range_check(target,32);
+        self.range_check(target, 32);
         U32Target(target)
     }
 }
 
 #[derive(Debug)]
-struct SplitToU32Generator<F: RichField + Extendable<D>, const D: usize> {
+pub struct SplitToU32Generator<F: RichField + Extendable<D>, const D: usize> {
     x: Target,
     low: U32Target,
     high: U32Target,

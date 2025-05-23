@@ -285,7 +285,7 @@ impl<F: RichField + Extendable<D>, const D: usize> Gate<F, D> for U32AddManyGate
 }
 
 #[derive(Clone, Debug)]
-struct U32AddManyGenerator<F: RichField + Extendable<D>, const D: usize> {
+pub struct U32AddManyGenerator<F: RichField + Extendable<D>, const D: usize> {
     gate: U32AddManyGate<F, D>,
     row: usize,
     i: usize,
